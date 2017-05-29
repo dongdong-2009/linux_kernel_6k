@@ -1650,7 +1650,7 @@ static void __init am33xx_cpuidle_init(void)
 
 }
 
-static void __init am335x_evm_init(void)
+static void __init am335x_evm_init(void)	//-注册了开发板所用到的所有设备的相关硬件信息
 {
 	int i;
 
@@ -1819,10 +1819,10 @@ MACHINE_START(AM335XEVM, "3352-T")
 	/* Maintainer: Texas Instruments */
 	.atag_offset	= 0x100,
 	.map_io			= am335x_evm_map_io,
-	.init_early		= am33xx_init_early,
+	.init_early		= am33xx_init_early,	//GPIO寄存器地址指定
 	.init_irq		= ti81xx_init_irq,
 	.handle_irq     = omap3_intc_handle_irq,
 	.timer			= &omap3_am33xx_timer,
-	.init_machine	= am335x_evm_init,
+	.init_machine	= am335x_evm_init,	//GPIO引脚复用配置
 MACHINE_END
 

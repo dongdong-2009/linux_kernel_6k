@@ -15,7 +15,7 @@
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-
+//-一般在内核的板级目录中存在对应的gpio.c文件，里面完成了将板级gpio设备到内核的映射的初始化工作
 #include <linux/gpio.h>
 #include <linux/err.h>
 #include <linux/slab.h>

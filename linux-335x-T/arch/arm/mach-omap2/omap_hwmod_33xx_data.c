@@ -13,7 +13,7 @@
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  */
-
+//-这里面定义了该系列开发板的各个模块
 #include <linux/io.h>
 #include <linux/slab.h>
 #include <linux/err.h>
@@ -253,7 +253,7 @@ static struct omap_hwmod_ocp_if am33xx_l4_per__gpio1 = {
 	.addr		= am33xx_gpio1_addrs,
 	.user		= OCP_USER_MPU | OCP_USER_SDMA,
 };
-
+//GPIO2对应的寄存器地址
 /* L4 PER -> GPIO3 */
 static struct omap_hwmod_addr_space am33xx_gpio2_addrs[] = {
 	{
@@ -1236,7 +1236,7 @@ static struct omap_hwmod am33xx_gpio0_hwmod = {
 	.slaves		= am33xx_gpio0_slaves,
 	.slaves_cnt	= ARRAY_SIZE(am33xx_gpio0_slaves),
 };
-
+//指定irq中断号,和芯片手册中一样
 /* gpio1 */
 static struct omap_hwmod_irq_info am33xx_gpio1_irqs[] = {
 	{ .irq = 98 },
