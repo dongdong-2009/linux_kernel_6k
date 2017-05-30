@@ -254,7 +254,7 @@ static struct omap_board_mux board_mux[] __initdata = {
 #else
 #define	board_mux	NULL
 #endif
-
+/* 模块引脚复用结构体 */
 /* module pin mux structure */
 struct pinmux_config {
 	const char *string_name; /* signal name format */
@@ -638,7 +638,7 @@ static struct pinmux_config gpio_ddr_vtt_enb_pin_mux[] = {
 * @pin_mux - single module pin-mux structure which defines pin-mux
 *			details for all its pins.
 */
-static void setup_pin_mux(struct pinmux_config *pin_mux)
+static void setup_pin_mux(struct pinmux_config *pin_mux)	//-运行芯片特定的MUX初始化函数,最终修改了寄存器值
 {
 	int i;
 

@@ -66,7 +66,7 @@ struct omap_mux_partition *omap_mux_get(const char *name)
 
 	return NULL;
 }
-
+//-读取mux寄存器（通过分区结构体指针和寄存器偏移值）
 u16 omap_mux_read(struct omap_mux_partition *partition, u16 reg)
 {
 	if (partition->flags & OMAP_MUX_REG_8BIT)
@@ -239,8 +239,8 @@ int omap_mux_get_by_name(const char *muxname,
 
 	return -ENODEV;
 }
-
-int __init omap_mux_init_signal(const char *muxname, int val)
+//-根据信号名字符串初始化一个引脚的mux
+int __init omap_mux_init_signal(const char *muxname, int val)	//-格式的Mux名称 mux寄存器值
 {
 	struct omap_mux_partition *partition = NULL;
 	struct omap_mux *mux = NULL;
