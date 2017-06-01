@@ -11,7 +11,7 @@
 #include <linux/of_gpio.h>
 #include <linux/idr.h>
 #include <linux/slab.h>
-
+//-GPIO Support选项的选入，内核会将标准GPIO库进行编译。标准GPIO库的源码位于内核中的如下位置:/driver/gpio/gpiolib.c
 #define CREATE_TRACE_POINTS
 #include <trace/events/gpio.h>
 
@@ -47,7 +47,7 @@
 static DEFINE_SPINLOCK(gpio_lock);
 
 struct gpio_desc {
-	struct gpio_chip	*chip;
+	struct gpio_chip	*chip;	//控制器指针
 	unsigned long		flags;
 /* flag symbols are bit numbers */
 #define FLAG_REQUESTED	0
@@ -1173,19 +1173,19 @@ EXPORT_SYMBOL_GPL(gpiochip_find);
  * on each other, and help provide better diagnostics in debugfs.
  * They're called even less than the "set direction" calls.
  */
-int gpio_request(unsigned gpio, const char *label)
+int gpio_request(unsigned gpio, const char *label)	//-获取GPIO Pin的使用权，并为该Pin命名为label
 {
-	struct gpio_desc	*desc;
-	struct gpio_chip	*chip;
+	struct gpio_desc	*desc;	//gpio pin结构体指针，参见下面相关数据结构描述。
+	struct gpio_chip	*chip;	//gpio pin controler结构体指针，参见下面相关数据结构描述
 	int			status = -EINVAL;
 	unsigned long		flags;
 
 	spin_lock_irqsave(&gpio_lock, flags);
 
-	if (!gpio_is_valid(gpio))
+	if (!gpio_is_valid(gpio))	//检测argument gpio的合法性。
 		goto done;
-	desc = &gpio_desc[gpio];
-	chip = desc->chip;
+	desc = &gpio_desc[gpio];	//从gpio数组gpio_desc从获取对应的Pin结构体。
+	chip = desc->chip;	//获取gpio pin的控制器
 	if (chip == NULL)
 		goto done;
 
@@ -1227,7 +1227,7 @@ done:
 }
 EXPORT_SYMBOL_GPL(gpio_request);
 
-void gpio_free(unsigned gpio)
+void gpio_free(unsigned gpio)	//-释放GPIO Pin的使用权
 {
 	unsigned long		flags;
 	struct gpio_desc	*desc;
@@ -1365,7 +1365,7 @@ EXPORT_SYMBOL_GPL(gpiochip_is_requested);
  * rely on gpio_request() having been called beforehand.
  */
 
-int gpio_direction_input(unsigned gpio)
+int gpio_direction_input(unsigned gpio)	//-设置GPIO Pin为输入模式
 {
 	unsigned long		flags;
 	struct gpio_chip	*chip;
@@ -1420,7 +1420,7 @@ fail:
 }
 EXPORT_SYMBOL_GPL(gpio_direction_input);
 
-int gpio_direction_output(unsigned gpio, int value)
+int gpio_direction_output(unsigned gpio, int value)	//-设置GPIO Pin为输出模式，并指定输出值value
 {
 	unsigned long		flags;
 	struct gpio_chip	*chip;
@@ -1550,7 +1550,7 @@ EXPORT_SYMBOL_GPL(gpio_set_debounce);
  * It returns the zero or nonzero value provided by the associated
  * gpio_chip.get() method; or zero if no such method is provided.
  */
-int __gpio_get_value(unsigned gpio)
+int __gpio_get_value(unsigned gpio)	//-获得 GPIO Pin 上的电平
 {
 	struct gpio_chip	*chip;
 	int value;
@@ -1572,7 +1572,7 @@ EXPORT_SYMBOL_GPL(__gpio_get_value);
  * This is used directly or indirectly to implement gpio_set_value().
  * It invokes the associated gpio_chip.set() method.
  */
-void __gpio_set_value(unsigned gpio, int value)
+void __gpio_set_value(unsigned gpio, int value)	//-设置 GPIO Pin 上的电平
 {
 	struct gpio_chip	*chip;
 
@@ -1611,7 +1611,7 @@ EXPORT_SYMBOL_GPL(__gpio_cansleep);
  * It returns the number of the IRQ signaled by this (input) GPIO,
  * or a negative errno.
  */
-int __gpio_to_irq(unsigned gpio)
+int __gpio_to_irq(unsigned gpio)	//-通过获得GPIO Pin 对应的 irq number
 {
 	struct gpio_chip	*chip;
 

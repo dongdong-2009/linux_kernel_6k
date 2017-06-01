@@ -11,7 +11,7 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
-
+//-驱动注册
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/interrupt.h>
@@ -1197,7 +1197,7 @@ static int __devinit omap_gpio_probe(struct platform_device *pdev)
 	bank->stride = pdata->bank_stride;
 	bank->width = pdata->bank_width;
 
-	bank->regs = pdata->regs;
+	bank->regs = pdata->regs;	//-将寄存器地址复制给bank->regs结构体
 
 	if (bank->regs->set_dataout && bank->regs->clr_dataout)
 		bank->set_dataout = _set_gpio_dataout_reg;
@@ -1586,7 +1586,7 @@ static struct platform_driver omap_gpio_driver = {
  */
 static int __init omap_gpio_drv_reg(void)
 {
-	return platform_driver_register(&omap_gpio_driver);
+	return platform_driver_register(&omap_gpio_driver);	//-驱动注册
 }
 postcore_initcall(omap_gpio_drv_reg);
 
