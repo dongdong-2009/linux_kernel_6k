@@ -1,0 +1,87 @@
+#!/bin/sh
+
+echo "build menu, please select your choice:" 
+echo "  1   make clean"  
+echo "  2   config for EPC_28xA"  
+echo "  3   config for EPC_283 or EasyARM-i.MX283A" 
+echo "  4   config for EPC_287 or EasyARM-i.MX287A" 
+echo "  5   config for EPC_280 or EasyARM-i.MX280A" 
+echo "  6   config for IoT_3960" 
+echo "  7   config for IoT_3962" 
+echo "  8   config for A287_W128LI" 
+echo "  9   config for A287_WB128LI"
+echo "  a   make menuconfig" 
+echo "  b   make uImage" 
+echo "  c   make zImage" 
+echo "  d   make modules" 
+echo "  q   exit" 
+make_distclean() {
+     echo "make distclean"
+     make clean 
+} 
+config_EPC_28xA() {         
+		echo "EPC_28xA"     
+		cp .config .config.bk      
+		cp  arch/arm/configs/EPC_28xA_defconfig .config 
+}
+config_EPC_283B() {
+         echo "EPC_283B"     
+         cp .config .config.bk      
+         cp  arch/arm/configs/EPC_283B_defconfig .config 
+} 
+config_EPC_287B() {
+         echo "EPC_287B"     
+         cp .config .config.bk      
+         cp  arch/arm/configs/EPC_287B_defconfig .config 
+}  
+config_EPC_280() {
+         echo "EPC_280"     
+         cp .config .config.bk      
+         cp  arch/arm/configs/EPC_280_defconfig .config 
+}  
+config_IoT_3960() {
+         echo "IoT_3960"     
+         cp .config .config.bk      
+         cp  arch/arm/configs/IoT_3960_defconfig .config 
+}  
+config_IoT_3962() {
+         echo "IoT_3962"     
+         cp .config .config.bk      
+         cp  arch/arm/configs/IoT_3962_defconfig .config 
+}  
+config_A287_W128LI() {
+         echo "A287_W128LI"     
+         cp .config .config.bk      
+         cp  arch/arm/configs/A287_W128LI_defconfig .config 
+}
+make_uImage() {
+         make uImage 
+} 
+make_zImage() {
+         make zImage 
+}
+make_modules() {
+         make modules 
+}
+make_menuconfig() {
+         make menuconfig 
+}
+read sel
+echo "select $sel"
+case $sel in 
+    [1]) make_distclean;;
+    [2]) config_EPC_28xA;;     
+    [3]) config_EPC_283B;;     
+    [4]) config_EPC_287B;;     
+    [5]) config_EPC_280;;     
+    [6]) config_IoT_3960;;     
+    [7]) config_IoT_3962;;     
+    [8]) config_A287_W128LI;;     
+    [9]) config_A287_WB128LI;;     
+    [a]) make_menuconfig;;     
+    [b]) make_uImage;;     
+    [c]) make_zImage;;     
+    [d]) make_modules;;     
+    [q] | [Q]) exit 0;;
+    *)   echo "ONLY accept 1~9,a~d/q/Q"
+esac     
