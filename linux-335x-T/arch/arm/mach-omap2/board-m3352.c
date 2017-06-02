@@ -588,13 +588,14 @@ static struct pinmux_config gpio_pin_mux[] = {
 
 //	{"gpmc_ad10.gpio0_26", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//AUDIO nRESET
 	{"gpmc_ad8.gpio0_22" , OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(15)
-	{"gpmc_ad9.gpio0_23" , OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(15)
-	{"gpmc_ad10.gpio0_26", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(15)
+	{"gpmc_ad9.gpio0_23" , OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//GPIO J8-(15)
+	{"gpmc_ad10.gpio0_26", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//GPIO J8-(15)
 	{"gpmc_ad11.gpio0_27", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(15)
 	{"gpmc_ad12.gpio1_12", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(15)
-	{"gpmc_ad13.gpio1_13", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(16)
+	{"gpmc_ad13.gpio1_13", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//GPIO J8-(16)
 	{"gpmc_ad14.gpio1_14", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(13)
 	{"gpmc_ad15.gpio1_15", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(14)
+	{"uart1_rtsn.gpio0_13", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},
 //	{"lcd_data5.gpio2_11", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(14)
 /*	
 	{"gpmc_a0.gpio1_16",   OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(11)
@@ -1188,10 +1189,10 @@ static void d_can_init(int evm_id, int profile)
 	if(!test_board)
 	{
 		printk("--------------------------can------------------------\n");
-		setup_pin_mux(d_can_ia_pin_mux);
+		//-setup_pin_mux(d_can_ia_pin_mux);
 		setup_pin_mux(d_can_gp_pin_mux);
 		/* Instance Zero */
-		am33xx_d_can_init(0);
+		//-am33xx_d_can_init(0);
 		/* Instance One */
 		am33xx_d_can_init(1);
 	}
@@ -1690,10 +1691,11 @@ static void __init am335x_evm_init(void)	//-注册了开发板所用到的所有设备的相关硬
 	}
 	gpio_export(44, 1);//1,鍏佽淇敼鏂瑰悜
 
-	if (gpio_request(45, "gpio45") < 0) {
+	if (gpio_request(45, "CT_VBAT") < 0) {
 		printk(KERN_ERR "failed to get GPIO_45\n");
 	}
 	gpio_export(45, 1);
+	gpio_direction_output(45, 0);
 
 	if (gpio_request(46, "gpio46") < 0) {
 		printk(KERN_ERR "failed to get GPIO_46\n");
@@ -1714,11 +1716,13 @@ static void __init am335x_evm_init(void)	//-注册了开发板所用到的所有设备的相关硬
 		printk(KERN_ERR "failed to get GPIO_23\n");
 	}
 	gpio_export(23, 1);
+	gpio_direction_output(23, 0);
 
 	if (gpio_request(26, "gpio26") < 0) {
 		printk(KERN_ERR "failed to get GPIO_26\n");
 	}
 	gpio_export(26, 1);
+	gpio_direction_output(26, 0);
 
 	if (gpio_request(27, "gpio27") < 0) {
 		printk(KERN_ERR "failed to get GPIO_27\n");
@@ -1734,6 +1738,12 @@ static void __init am335x_evm_init(void)	//-注册了开发板所用到的所有设备的相关硬
 		printk(KERN_ERR "failed to get GPIO_63\n");
 	}
 	gpio_export(63, 1);
+
+	if (gpio_request(13, "gpio13") < 0) {
+		printk(KERN_ERR "failed to get GPIO_13\n");
+	}
+	gpio_export(13, 1);
+	gpio_direction_output(13, 0);
 
 	if(test_board)
 	{
