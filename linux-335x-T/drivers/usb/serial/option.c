@@ -546,6 +546,7 @@ static const struct option_blacklist_info zte_mf626_blacklist = {
 };
 
 static const struct usb_device_id option_ids[] = {
+	{ USB_DEVICE(0x1C9E, 0x9B3C) },
 	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_COLT) },
 	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA) },
 	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA_LIGHT) },
