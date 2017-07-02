@@ -332,6 +332,20 @@ static struct da8xx_panel known_lcd_panels[] = {
 		.pxl_clk = 30000000,
 		.invert_pxl_clk = 0,
 	},
+	/* TFT_AT070TN83 */
+	[7] = {
+		.name = "TFT_AT070TN83",
+		.width = 800,
+		.height = 480,
+		.hfp = 40,
+		.hbp = 48,
+		.hsw = 40,
+		.vfp = 13,
+		.vbp = 3,
+		.vsw = 29,
+		.pxl_clk = 30000000,
+		.invert_pxl_clk = 0,
+	},
 };
 
 static inline bool is_raster_enabled(void)
