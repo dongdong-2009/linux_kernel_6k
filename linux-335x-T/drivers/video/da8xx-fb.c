@@ -343,7 +343,7 @@ static struct da8xx_panel known_lcd_panels[] = {
 		.vfp = 13,
 		.vbp = 3,
 		.vsw = 29,
-		.pxl_clk = 30000000,
+		.pxl_clk = 40000000,
 		.invert_pxl_clk = 0,
 	},
 };
