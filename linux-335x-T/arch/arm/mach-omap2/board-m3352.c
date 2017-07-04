@@ -180,6 +180,12 @@ struct da8xx_lcdc_platform_data VGA_800x600_pdata = {
 	.type			= "VGA_800x600",
 };
 
+struct da8xx_lcdc_platform_data TFT_AT070TN83_pdata = {
+	.manu_name		= "qunchuang",
+	.controller_data	= &lcd_cfg,
+	.type			= "TFT_AT070TN83",
+};
+
 #include "common.h"
 
 #include <linux/lis3lv02d.h>
@@ -825,8 +831,9 @@ static void lcdc_init(int evm_id, int profile)
 
 //	lcdc_pdata = &TFC_S9700RTWV35TR_01B_pdata;
 //	lcdc_pdata = &TFT_TM070RDH12_pdata;
-	lcdc_pdata = &TFT_HW480272_pdata;
+//	lcdc_pdata = &TFT_HW480272_pdata;
 //	lcdc_pdata = &VGA_800x600_pdata;
+	lcdc_pdata = &TFT_AT070TN83_pdata;
 	lcdc_pdata->get_context_loss_count = omap_pm_get_dev_context_loss_count;
 
 	if (am33xx_register_lcdc(lcdc_pdata))
