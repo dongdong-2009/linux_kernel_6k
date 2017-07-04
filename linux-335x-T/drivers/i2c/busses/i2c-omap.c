@@ -527,13 +527,13 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *adap,
 
 	if (msg->len == 0)
 		return -EINVAL;
-
+	//-写设备地址,这里已经涉及外设
 	omap_i2c_write_reg(dev, OMAP_I2C_SA_REG, msg->addr);
 
 	/* REVISIT: Could the STB bit of I2C_CON be used with probing? */
 	dev->buf = msg->buf;
 	dev->buf_len = msg->len;
-
+	//-接受数据的长度
 	omap_i2c_write_reg(dev, OMAP_I2C_CNT_REG, dev->buf_len);
 
 	/* Clear the FIFO Buffers */
@@ -643,7 +643,7 @@ omap_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msgs[], int num)
 		dev->set_mpu_wkup_lat(dev->dev, dev->latency);
 
 	for (i = 0; i < num; i++) {
-		r = omap_i2c_xfer_msg(adap, &msgs[i], (i == (num - 1)));
+		r = omap_i2c_xfer_msg(adap, &msgs[i], (i == (num - 1)));	//-启动I2C消息传输
 		if (r != 0)
 			break;
 	}
@@ -959,8 +959,8 @@ complete:
 }
 
 static const struct i2c_algorithm omap_i2c_algo = {
-	.master_xfer	= omap_i2c_xfer,
-	.functionality	= omap_i2c_func,
+	.master_xfer	= omap_i2c_xfer,	//-传输函数
+	.functionality	= omap_i2c_func,	//-功能支持
 };
 
 static int __devinit
@@ -1082,13 +1082,13 @@ omap_i2c_probe(struct platform_device *pdev)
 //	adap->class = I2C_CLASS_HWMON;
 	adap->class = 0;
 	strlcpy(adap->name, "OMAP I2C adapter", sizeof(adap->name));
-	adap->algo = &omap_i2c_algo;
+	adap->algo = &omap_i2c_algo;	//-i2c发送和接受的算法函数
 	adap->dev.parent = &pdev->dev;
 
 	/* i2c device drivers may be active on return from add_adapter() */
 	adap->nr = pdev->id;
-	r = i2c_add_numbered_adapter(adap);
-	if (r) {
+	r = i2c_add_numbered_adapter(adap);	//-在初始化了一个I2C适配器后，即可注册到 I2C 子系统
+	if (r) {//-注册I2C 适配器失败返回非0
 		dev_err(dev->dev, "failure adding adapter\n");
 		goto err_free_irq;
 	}

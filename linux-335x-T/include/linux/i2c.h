@@ -157,7 +157,7 @@ extern s32 i2c_smbus_write_i2c_block_data(const struct i2c_client *client,
  * else with it. In particular, calling dev_dbg and friends on it is
  * not allowed.
  */
-struct i2c_driver {
+struct i2c_driver {//-描述 I2C 驱动
 	unsigned int class;
 
 	/* Notifies the driver that a new bus has appeared or is about to be
@@ -168,8 +168,8 @@ struct i2c_driver {
 	int (*detach_adapter)(struct i2c_adapter *) __deprecated;
 
 	/* Standard driver model interfaces */
-	int (*probe)(struct i2c_client *, const struct i2c_device_id *);
-	int (*remove)(struct i2c_client *);
+	int (*probe)(struct i2c_client *, const struct i2c_device_id *);	//-探测函数的指针
+	int (*remove)(struct i2c_client *);	//-移除函数的指针
 
 	/* driver model interfaces that don't relate to enumeration  */
 	void (*shutdown)(struct i2c_client *);
@@ -188,8 +188,8 @@ struct i2c_driver {
 	 */
 	int (*command)(struct i2c_client *client, unsigned int cmd, void *arg);
 
-	struct device_driver driver;
-	const struct i2c_device_id *id_table;
+	struct device_driver driver;	//-进一步描述 I2C 驱动的信息
+	const struct i2c_device_id *id_table;	//-包含 I2C 驱动可以匹配的 I2C 设备名称列表
 
 	/* Device detection callback for automatic device creation */
 	int (*detect)(struct i2c_client *, struct i2c_board_info *);
@@ -216,13 +216,13 @@ struct i2c_driver {
  * i2c bus. The behaviour exposed to Linux is defined by the driver
  * managing the device.
  */
-struct i2c_client {
-	unsigned short flags;		/* div., see below		*/
-	unsigned short addr;		/* chip address - NOTE: 7bit	*/
+struct i2c_client {//-描述总线上的从机设备信息
+	unsigned short flags;		/* 为 I2C 设备的标志信息		*/
+	unsigned short addr;		/* 从机地址	*/
 					/* addresses are stored in the	*/
 					/* _LOWER_ 7 bits		*/
-	char name[I2C_NAME_SIZE];
-	struct i2c_adapter *adapter;	/* the adapter we sit on	*/
+	char name[I2C_NAME_SIZE];	//- I2C 设备的名称，这表明设备身份的信息
+	struct i2c_adapter *adapter;	/* I2C 适配器	*/
 	struct i2c_driver *driver;	/* and our access routines	*/
 	struct device dev;		/* the device structure		*/
 	int irq;			/* irq issued by device		*/
@@ -269,11 +269,11 @@ static inline void i2c_set_clientdata(struct i2c_client *dev, void *data)
  * bus numbers identify adapters that aren't yet available.  For add-on boards,
  * i2c_new_device() does this dynamically with the adapter already known.
  */
-struct i2c_board_info {
-	char		type[I2C_NAME_SIZE];
+struct i2c_board_info {//-描述总线上从机信息
+	char		type[I2C_NAME_SIZE];	//-从机器件的名称，对应 i2c_client 结构的 name 名称
 	unsigned short	flags;
-	unsigned short	addr;
-	void		*platform_data;
+	unsigned short	addr;	//-从机地址，对应 i2c_client 结构的 addr 成员
+	void		*platform_data;	//-为私有数据，对应 i2c_client 结构的 dev 成员下的 platform_data 成员
 	struct dev_archdata	*archdata;
 	struct device_node *of_node;
 	int		irq;
@@ -370,20 +370,20 @@ struct i2c_algorithm {
  * with the access algorithms necessary to access it.
  */
 struct i2c_adapter {
-	struct module *owner;
+	struct module *owner;	//-I2C 适配器的所有者，该成员是由系统初始化。
 	unsigned int class;		  /* classes to allow probing for */
-	const struct i2c_algorithm *algo; /* the algorithm to access the bus */
-	void *algo_data;
+	const struct i2c_algorithm *algo; /* 该成员实现 I2C 控制器在总线的数据收/发。 */
+	void *algo_data;	//-是私有数据
 
 	/* data fields that are valid for all devices	*/
 	struct rt_mutex bus_lock;
 
-	int timeout;			/* in jiffies */
-	int retries;
+	int timeout;			/* 为传输出错超时 */
+	int retries;	//-为重试数据传输的次数。
 	struct device dev;		/* the adapter device */
 
-	int nr;
-	char name[48];
+	int nr;		//-为 I2C 适配器控制的总线的编号
+	char name[48];	//-为 I2C 适配器的名字
 	struct completion dev_released;
 
 	struct mutex userspace_clients_lock;
@@ -522,17 +522,17 @@ static inline int i2c_adapter_id(struct i2c_adapter *adap)
  * need (one or more of IGNORE_NAK, NO_RD_ACK, NOSTART, and REV_DIR_ADDR).
  */
 struct i2c_msg {
-	__u16 addr;	/* slave address			*/
-	__u16 flags;
-#define I2C_M_TEN		0x0010	/* this is a ten bit chip address */
-#define I2C_M_RD		0x0001	/* read data, from slave to master */
+	__u16 addr;	/* 从机地址			*/
+	__u16 flags;	//-标志
+#define I2C_M_TEN		0x0010	/* 十位地址标志 */
+#define I2C_M_RD		0x0001	/* 接收数据标志, from slave to master */
 #define I2C_M_NOSTART		0x4000	/* if I2C_FUNC_PROTOCOL_MANGLING */
 #define I2C_M_REV_DIR_ADDR	0x2000	/* if I2C_FUNC_PROTOCOL_MANGLING */
 #define I2C_M_IGNORE_NAK	0x1000	/* if I2C_FUNC_PROTOCOL_MANGLING */
 #define I2C_M_NO_RD_ACK		0x0800	/* if I2C_FUNC_PROTOCOL_MANGLING */
 #define I2C_M_RECV_LEN		0x0400	/* length will be first received byte */
-	__u16 len;		/* msg length				*/
-	__u8 *buf;		/* pointer to msg data			*/
+	__u16 len;		/* 数据长度				*/
+	__u8 *buf;		/* 数据指针			*/
 };
 
 /* To determine what functionality is present */

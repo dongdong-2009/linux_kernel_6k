@@ -1327,7 +1327,7 @@ int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
 	 *    (discarding status on the first one).
 	 */
 
-	if (adap->algo->master_xfer) {
+	if (adap->algo->master_xfer) {//-显然这个i2c_transfer依赖i2c_algorithm中的master_xfer是否被定义,我们在注册分析中知道它已经被赋值为.master_xfer = mxc_i2c_xfer
 #ifdef DEBUG
 		for (ret = 0; ret < num; ret++) {
 			dev_dbg(&adap->dev, "master_xfer[%d] %c, addr=0x%02x, "
@@ -1343,16 +1343,16 @@ int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
 				/* I2C activity is ongoing. */
 				return -EAGAIN;
 		} else {
-			i2c_lock_adapter(adap);
+			i2c_lock_adapter(adap);	//-给bus上锁了
 		}
 
 		/* Retry automatically on arbitration loss */
 		orig_jiffies = jiffies;
 		for (ret = 0, try = 0; try <= adap->retries; try++) {
-			ret = adap->algo->master_xfer(adap, msgs, num);
+			ret = adap->algo->master_xfer(adap, msgs, num);	//-最终转换为i2c_algorithm中的master_xfer传输
 			if (ret != -EAGAIN)
 				break;
-			if (time_after(jiffies, orig_jiffies + adap->timeout))
+			if (time_after(jiffies, orig_jiffies + adap->timeout))	//-retry间隔时间
 				break;
 		}
 		i2c_unlock_adapter(adap);
@@ -1374,21 +1374,21 @@ EXPORT_SYMBOL(i2c_transfer);
  * Returns negative errno, or else the number of bytes written.
  */
 int i2c_master_send(const struct i2c_client *client, const char *buf, int count)
-{
+{//-client 为此次与主机通信的从机，buf 为发送的数据指针，count 为发送数据的字节数。
 	int ret;
-	struct i2c_adapter *adap = client->adapter;
-	struct i2c_msg msg;
+	struct i2c_adapter *adap = client->adapter;	//-获取adapter信息
+	struct i2c_msg msg;	//-定义一个临时的数据包
 
-	msg.addr = client->addr;
-	msg.flags = client->flags & I2C_M_TEN;
-	msg.len = count;
-	msg.buf = (char *)buf;
+	msg.addr = client->addr;	//-将从机地址写入数据包
+	msg.flags = client->flags & I2C_M_TEN;	//-将从机标志并入数据包
+	msg.len = count;	//-将此次发送的数据字节数写入数据包
+	msg.buf = (char *)buf;	//-将发送数据指针写入数据包
 
-	ret = i2c_transfer(adap, &msg, 1);
+	ret = i2c_transfer(adap, &msg, 1);	//- 调用平台接口发送数据
 
 	/* If everything went ok (i.e. 1 msg transmitted), return #bytes
 	   transmitted, else error code. */
-	return (ret == 1) ? count : ret;
+	return (ret == 1) ? count : ret;	//-如果发送成功就返回字节数
 }
 EXPORT_SYMBOL(i2c_master_send);
 

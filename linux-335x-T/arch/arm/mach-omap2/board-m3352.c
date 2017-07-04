@@ -46,7 +46,7 @@
 #include <linux/opp.h>
 #include <linux/serial_8250.h>
 #include <sound/tlv320aic3x.h>
-
+//-内核的处理器平台初始化代码
 /* LCD controller is similar to DA850 */
 #include <video/da8xx-fb.h>
 
@@ -1054,8 +1054,8 @@ static void evm_nand_init(int evm_id, int profile)
 	omap_init_gpmc(gpmc_device, sizeof(gpmc_device));
 	omap_init_elm();
 }
-
-static struct i2c_board_info am335x_i2c1_boardinfo[] = {
+//-在同一个总线上增加设备,这里应该就是信息添加处
+static struct i2c_board_info am335x_i2c1_boardinfo[] = {//-初始化一个从机器件信息
 	{
 		I2C_BOARD_INFO("pcf8563", 0x51),
 	},
@@ -1065,7 +1065,7 @@ static void i2c1_init(int evm_id, int profile)
 {
 	setup_pin_mux(i2c1_pin_mux);
 	omap_register_i2c_bus(2, 400, am335x_i2c1_boardinfo,
-			ARRAY_SIZE(am335x_i2c1_boardinfo));
+			ARRAY_SIZE(am335x_i2c1_boardinfo));	//-注册到指定的总线
 	return;
 }
 
@@ -1559,10 +1559,10 @@ static struct ds2460_platform_data ds2460_eeprom_info = {
 //    .setup          = davinci_get_mac_addr,
     .context    = (void *)0x80,
 };
-
+//-i2c设备的设备地址
 static struct i2c_board_info __initdata am335x_i2c0_boardinfo[] = {
     {
-        I2C_BOARD_INFO("ds2460", 0x80 >> 1),
+        I2C_BOARD_INFO("ds2460", 0x80 >> 1),	//-添加设备信息
         .platform_data  = &ds2460_eeprom_info,
     },
 };
@@ -1579,12 +1579,12 @@ static struct omap_musb_board_data musb_board_data = {
 	.power		= 500,
 	.instances	= 1,
 };
-
+//-初始化i2c 0,由于i2c0引脚的mode0就是i2c功能，所以不需要配置引脚复用
 static void __init am335x_evm_i2c_init(void)
 {
 	/* Initially assume General Purpose EVM Config */
 	am335x_evm_id = GEN_PURP_EVM;
-
+	//- i2c 0, speed: 400k 
 	omap_register_i2c_bus(1, 400, am335x_i2c0_boardinfo,
 				ARRAY_SIZE(am335x_i2c0_boardinfo));
 }
@@ -1824,7 +1824,7 @@ static void __init am335x_evm_map_io(void)
 	omap2_set_globals_am33xx();
 	omapam33xx_map_common_io();
 }
-
+//-i2c设备注册，配置引脚复用
 MACHINE_START(AM335XEVM, "3352-T")
 	/* Maintainer: Texas Instruments */
 	.atag_offset	= 0x100,

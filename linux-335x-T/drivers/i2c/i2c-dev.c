@@ -19,7 +19,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
-
+//-实现了 I2C 适配器的驱动
 /* Note that this is a complete rewrite of Simon Vogl's i2c-dev module.
    But I have used so much of his original code and ideas that it seems
    only fair to recognize him as co-author -- Frodo */

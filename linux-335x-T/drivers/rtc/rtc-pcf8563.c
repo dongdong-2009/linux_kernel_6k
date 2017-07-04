@@ -81,7 +81,7 @@ static int pcf8563_get_datetime(struct i2c_client *client, struct rtc_time *tm)
 	};
 
 	/* read registers */
-	if ((i2c_transfer(client->adapter, msgs, 2)) != 2) {
+	if ((i2c_transfer(client->adapter, msgs, 2)) != 2) {//-实现了底层调用
 		dev_err(&client->dev, "%s: read error\n", __func__);
 		return -EIO;
 	}
@@ -182,12 +182,14 @@ static int pcf8563_rtc_set_time(struct device *dev, struct rtc_time *tm)
 {
 	return pcf8563_set_datetime(to_i2c_client(dev), tm);
 }
-
+//-下面就是具体函数的实现了,当系统调用的时候,系统就会运行这些具体代码
 static const struct rtc_class_ops pcf8563_rtc_ops = {
 	.read_time	= pcf8563_rtc_read_time,
 	.set_time	= pcf8563_rtc_set_time,
 };
-
+//-当 I2C 子系统中被注册了名字为“ pcf8563”、“ rtc8564”或“ rtc-pcf8563”的 I2C 设备时，
+//-都会被 PCF8563的 I2C驱动探测到，然后 pcf8563_probe()函数将被调用，为探测到的 PCF8563
+//-芯片 I2C 设备实现 RTC 驱动。
 static int pcf8563_probe(struct i2c_client *client,
 				const struct i2c_device_id *id)
 {
@@ -223,7 +225,7 @@ exit_kfree:
 
 	return err;
 }
-
+//-当 PCF8563 芯片的 I2C 驱动或 I2C 设备被注销时，pcf8563_remove()函数将被调用，为之前探测到的 I2C 设备移除 RTC 驱动。
 static int pcf8563_remove(struct i2c_client *client)
 {
 	struct pcf8563 *pcf8563 = i2c_get_clientdata(client);
@@ -235,23 +237,23 @@ static int pcf8563_remove(struct i2c_client *client)
 
 	return 0;
 }
-
+//-下面表示只要名字为“pcf8563或rtc8564”的I2C 设备，就可以被该 I2C 驱动探测到。
 static const struct i2c_device_id pcf8563_id[] = {
 	{ "pcf8563", 0 },
 	{ "rtc8564", 0 },
 	{ }
 };
-MODULE_DEVICE_TABLE(i2c, pcf8563_id);
+MODULE_DEVICE_TABLE(i2c, pcf8563_id);	//-进一步初始化 pcf8563_id
 
 static struct i2c_driver pcf8563_driver = {
 	.driver		= {
 		.name	= "rtc-pcf8563",
 	},
-	.probe		= pcf8563_probe,
+	.probe		= pcf8563_probe,	//- I2C 驱动的探测函数
 	.remove		= pcf8563_remove,
 	.id_table	= pcf8563_id,
 };
-
+//-下面实现 I2C 驱动的注册和注销
 static int __init pcf8563_init(void)
 {
 	return i2c_add_driver(&pcf8563_driver);
