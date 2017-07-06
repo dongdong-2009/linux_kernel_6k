@@ -1836,7 +1836,7 @@ MACHINE_START(AM335XEVM, "3352-T")
 	/* Maintainer: Texas Instruments */
 	.atag_offset	= 0x100,
 	.map_io			= am335x_evm_map_io,
-	.init_early		= am33xx_init_early,	//GPIO寄存器地址指定
+	.init_early		= am33xx_init_early,	//-寄存器地址指定
 	.init_irq		= ti81xx_init_irq,
 	.handle_irq     = omap3_intc_handle_irq,
 	.timer			= &omap3_am33xx_timer,

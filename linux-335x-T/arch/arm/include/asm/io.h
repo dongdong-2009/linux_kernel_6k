@@ -46,7 +46,7 @@ extern void __raw_writesl(void __iomem *addr, const void *data, int longlen);
 extern void __raw_readsb(const void __iomem *addr, void *data, int bytelen);
 extern void __raw_readsw(const void __iomem *addr, void *data, int wordlen);
 extern void __raw_readsl(const void __iomem *addr, void *data, int longlen);
-
+//-最直接的操作寄存器---向地址写东西
 #define __raw_writeb(v,a)	(__chk_io_ptr(a), *(volatile unsigned char __force  *)(a) = (v))
 #define __raw_writew(v,a)	(__chk_io_ptr(a), *(volatile unsigned short __force *)(a) = (v))
 #define __raw_writel(v,a)	(__chk_io_ptr(a), *(volatile unsigned int __force   *)(a) = (v))

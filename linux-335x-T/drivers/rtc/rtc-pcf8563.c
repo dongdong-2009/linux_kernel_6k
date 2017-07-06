@@ -160,7 +160,7 @@ static int pcf8563_set_datetime(struct i2c_client *client, struct rtc_time *tm)
 	for (i = 0; i < 7; i++) {
 		unsigned char data[2] = { PCF8563_REG_SC + i,
 						buf[PCF8563_REG_SC + i] };
-
+		//-data数组里面记录的就是发送数据,I2C外设是不需要理会意思的
 		err = i2c_master_send(client, data, sizeof(data));
 		if (err != sizeof(data)) {
 			dev_err(&client->dev,

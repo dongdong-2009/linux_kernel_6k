@@ -224,7 +224,7 @@ static const u8 reg_map_ip_v1[] = {
 	[OMAP_I2C_SYSTEST_REG] = 0x0f,
 	[OMAP_I2C_BUFSTAT_REG] = 0x10,
 };
-
+//-下面就是具体CPU的寄存器地址
 static const u8 reg_map_ip_v2[] = {
 	[OMAP_I2C_REV_REG] = 0x04,
 	[OMAP_I2C_IE_REG] = 0x2c,
@@ -250,7 +250,7 @@ static const u8 reg_map_ip_v2[] = {
 	[OMAP_I2C_IP_V2_IRQENABLE_SET] = 0x2c,
 	[OMAP_I2C_IP_V2_IRQENABLE_CLR] = 0x30,
 };
-
+//-这里进行了最后的转化,然后就是操作寄存器了
 static inline void omap_i2c_write_reg(struct omap_i2c_dev *i2c_dev,
 				      int reg, u16 val)
 {
@@ -966,7 +966,7 @@ static const struct i2c_algorithm omap_i2c_algo = {
 static int __devinit
 omap_i2c_probe(struct platform_device *pdev)
 {
-	struct omap_i2c_dev	*dev;
+	struct omap_i2c_dev	*dev;	//-创建一个结构体记录I2C外设信息
 	struct i2c_adapter	*adap;
 	struct resource		*mem, *irq, *ioarea;
 	struct omap_i2c_bus_platform_data *pdata = pdev->dev.platform_data;
@@ -1021,7 +1021,7 @@ omap_i2c_probe(struct platform_device *pdev)
 	dev->reg_shift = (pdata->flags >> OMAP_I2C_FLAG_BUS_SHIFT__SHIFT) & 3;
 
 	if (pdata->rev == OMAP_I2C_IP_VERSION_2)
-		dev->regs = (u8 *)reg_map_ip_v2;
+		dev->regs = (u8 *)reg_map_ip_v2;	//-经过这里复制寄存器地址偏移量就有了
 	else
 		dev->regs = (u8 *)reg_map_ip_v1;
 

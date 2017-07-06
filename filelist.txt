@@ -1,0 +1,90 @@
+1、GPIO：
+linux-3.2/drivers/gpio/gpiolib.c  
+linux-3.2/drivers/gpio/gpio-omap.c  
+2、USER KEY：
+linux-3.2/drivers/input/keyboard/gpio_keys.c  
+3、LED：
+linux-3.2/drivers/leds/leds-gpio.c
+4、RTC：
+linux-3.2/drivers/rtc/rtc-omap.c 
+5、LCD：
+linux-3.2/drivers/video/da8xx-fb.c
+6、LCD背光驱动：
+linux-3.2/drivers/video/backlight/pwm_bl.c
+linux-3.2/drivers/video/backlight/tlc59108.c
+7、RS232/RS485驱动：
+linux-3.2/drivers/tty/serial/omap-serial.c
+8、网卡驱动：
+linux-3.2/drivers/net/ethernet/smsc/smc91x.c
+linux-3.2/drivers/net/ethernet/smsc/smsc911x.c
+linux-3.2/drivers/net/ethernet/ti/cpsw.c
+9、CAN驱动：
+linux-3.2/drivers/net/can/d_can/d_can.c
+10、看门狗驱动：
+linux-3.2/drivers/watchdog/omap_wdt.c
+11、USB接口U盘：
+linux-3.2/drivers/usb/storage/usb.c
+12、SD/MMC：
+linux-3.2/drivers/mmc/card/block.c
+linux-3.2/drivers/mmc/host/omap_hsmmc.c
+13、NANDFLASH：
+linux-3.2/drivers/mtd/nand/omap2.c
+14、音频驱动：
+linux-3.2/sound/soc/codecs/sgtl5000.c
+15、i2c驱动：
+linux-3.2/drivers/i2c/busses/i2c-omap.c
+16、spi驱动：
+linux-3.2/drivers/spi/spi-omap2-mcspi.c
+17、USB鼠标驱动：
+linux-3.2/drivers/hid/usbhid/
+18、USB键盘驱动：
+linux-3.2/drivers/hid/usbhid/
+19、PWM驱动：
+linux-3.2/drivers/pwm/ecap.c
+linux-3.2/drivers/pwm/ehrpwm.c
+
+
+**共用的板级文件
+/arch/arm/mach-omap2/board-m3352.c
+/arch/arm/plat-omap/include/plat/am33xx.h
+/drivers/base/platform.c
+/arch/arm/mach-omap2/omap_hwmod_33xx_data.c
+
+
+**通用Linux系统文件。
+
+
+这里列出了针对特定板件的相关文件。
+有另外一个好办法，先编译内核成uImage，再到对应目录下，如果看到有.o文件，那么对应名称的.c文件就是驱动源码文件了。
+
+
+22:50 2017/7/5
+增加相关文件到source insight工程，进行代码阅读。文件增加分为两部分。
+第一部分：（基础文件，大家都需要的）
+arch/arm/
+	boot 内核需要的特定平台代码
+	kernel 体系结构特有的代码
+	lib 通用函数在特定体系结构的实现
+	math-emu 模拟 FPU 的代码，在 ARM 中，使用 mach-xxx 代替
+	mm 特定体系结构的内存管理实现
+	include 特定体系的头文件
+
+include/	存放内核所需、与平台无关的头文件
+
+init/ 包含内核初始化代码
+
+kernel/ 包含 Linux 内核管理代码
+
+lib/ 库文件代码实现
+
+
+第二部分：（针对性功能文件，针对特定需求的）
+针对特定板件的共用代码(这里是am3352-t):
+
+
+例子1：
+解读I2C的裸机寄存器读写
+
+
+
+
