@@ -13,8 +13,8 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
-
-#include <linux/i2c.h>
+//-现在开始阅读这个模块，仅仅需要考虑这个模块逻辑
+#include <linux/i2c.h>		//-linux-335x-T/include/ 这个路径是上级路径
 #include <linux/bcd.h>
 #include <linux/rtc.h>
 #include <linux/slab.h>
@@ -263,11 +263,11 @@ static void __exit pcf8563_exit(void)
 {
 	i2c_del_driver(&pcf8563_driver);
 }
-
+//-下面是增加的模块描述信息
 MODULE_AUTHOR("Alessandro Zummo <a.zummo@towertech.it>");
 MODULE_DESCRIPTION("Philips PCF8563/Epson RTC8564 RTC driver");
-MODULE_LICENSE("GPL");
+MODULE_LICENSE("GPL");	//-为模块指定遵守的协议
 MODULE_VERSION(DRV_VERSION);
 
-module_init(pcf8563_init);
-module_exit(pcf8563_exit);
+module_init(pcf8563_init);	//-通过这个内核将可以执行模块初始化代码
+module_exit(pcf8563_exit);	//-通过这个内核将可以执行模块卸载函数,这些并不直接与应用程序交互
