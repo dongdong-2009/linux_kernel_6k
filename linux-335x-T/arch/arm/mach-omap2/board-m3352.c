@@ -1697,6 +1697,7 @@ static void __init am335x_evm_init(void)	//-注册了开发板所用到的所有设备的相关硬
 		printk(KERN_ERR "failed to get GPIO_44\n");
 	}
 	gpio_export(44, 1);//1,鍏佽淇敼鏂瑰悜
+	gpio_direction_output(44, 1);
 
 	if (gpio_request(45, "CT_VBAT") < 0) {
 		printk(KERN_ERR "failed to get GPIO_45\n");
@@ -1713,6 +1714,7 @@ static void __init am335x_evm_init(void)	//-注册了开发板所用到的所有设备的相关硬
 		printk(KERN_ERR "failed to get GPIO_47\n");
 	}
 	gpio_export(47, 1);
+	gpio_direction_output(47, 1);
 
 	if (gpio_request(22, "gpio22") < 0) {
 		printk(KERN_ERR "failed to get GPIO_22\n");
