@@ -987,9 +987,9 @@ static struct mtd_partition am335x_nand_partitions[] = {
 		.offset         = MTDPART_OFS_APPEND,   /* Offset = 0x08b8 0000 */
 //		.size           = MTDPART_SIZ_FULL,
 //		.size			= 0x3400000,  /*128M - 4*128k*/
-//		.size			= 0xb400000,  /*256M - 4*128k*/
+		.size			= 0xb400000,  /*256M - 4*128k*/
 //		.size			= 0x1b400000, /*512M - 4*128k*/
-		.size			= 0x3b400000, /*1G - 4*128k*/
+//		.size			= 0x3b400000, /*1G - 4*128k*/
 		/*4块用作坏块表，可用大小为：size = can-use - 4*128k*/
 	},
 };
