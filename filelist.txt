@@ -1,89 +1,89 @@
-1¡¢GPIO£º
+ï»¿1ã€GPIOï¼š
 linux-3.2/drivers/gpio/gpiolib.c  
 linux-3.2/drivers/gpio/gpio-omap.c  
-2¡¢USER KEY£º
+2ã€USER KEYï¼š
 linux-3.2/drivers/input/keyboard/gpio_keys.c  
-3¡¢LED£º
+3ã€LEDï¼š
 linux-3.2/drivers/leds/leds-gpio.c
-4¡¢RTC£º
+4ã€RTCï¼š
 linux-3.2/drivers/rtc/rtc-omap.c 
-5¡¢LCD£º
+5ã€LCDï¼š
 linux-3.2/drivers/video/da8xx-fb.c
-6¡¢LCD±³¹âÇı¶¯£º
+6ã€LCDèƒŒå…‰é©±åŠ¨ï¼š
 linux-3.2/drivers/video/backlight/pwm_bl.c
 linux-3.2/drivers/video/backlight/tlc59108.c
-7¡¢RS232/RS485Çı¶¯£º
+7ã€RS232/RS485é©±åŠ¨ï¼š
 linux-3.2/drivers/tty/serial/omap-serial.c
-8¡¢Íø¿¨Çı¶¯£º
+8ã€ç½‘å¡é©±åŠ¨ï¼š
 linux-3.2/drivers/net/ethernet/smsc/smc91x.c
 linux-3.2/drivers/net/ethernet/smsc/smsc911x.c
 linux-3.2/drivers/net/ethernet/ti/cpsw.c
-9¡¢CANÇı¶¯£º
+9ã€CANé©±åŠ¨ï¼š
 linux-3.2/drivers/net/can/d_can/d_can.c
-10¡¢¿´ÃÅ¹·Çı¶¯£º
+10ã€çœ‹é—¨ç‹—é©±åŠ¨ï¼š
 linux-3.2/drivers/watchdog/omap_wdt.c
-11¡¢USB½Ó¿ÚUÅÌ£º
+11ã€USBæ¥å£Uç›˜ï¼š
 linux-3.2/drivers/usb/storage/usb.c
-12¡¢SD/MMC£º
+12ã€SD/MMCï¼š
 linux-3.2/drivers/mmc/card/block.c
 linux-3.2/drivers/mmc/host/omap_hsmmc.c
-13¡¢NANDFLASH£º
+13ã€NANDFLASHï¼š
 linux-3.2/drivers/mtd/nand/omap2.c
-14¡¢ÒôÆµÇı¶¯£º
+14ã€éŸ³é¢‘é©±åŠ¨ï¼š
 linux-3.2/sound/soc/codecs/sgtl5000.c
-15¡¢i2cÇı¶¯£º
+15ã€i2cé©±åŠ¨ï¼š
 linux-3.2/drivers/i2c/busses/i2c-omap.c
-16¡¢spiÇı¶¯£º
+16ã€spié©±åŠ¨ï¼š
 linux-3.2/drivers/spi/spi-omap2-mcspi.c
-17¡¢USBÊó±êÇı¶¯£º
+17ã€USBé¼ æ ‡é©±åŠ¨ï¼š
 linux-3.2/drivers/hid/usbhid/
-18¡¢USB¼üÅÌÇı¶¯£º
+18ã€USBé”®ç›˜é©±åŠ¨ï¼š
 linux-3.2/drivers/hid/usbhid/
-19¡¢PWMÇı¶¯£º
+19ã€PWMé©±åŠ¨ï¼š
 linux-3.2/drivers/pwm/ecap.c
 linux-3.2/drivers/pwm/ehrpwm.c
 
 
-**¹²ÓÃµÄ°å¼¶ÎÄ¼ş
+**å…±ç”¨çš„æ¿çº§æ–‡ä»¶
 /arch/arm/mach-omap2/board-m3352.c
 /arch/arm/plat-omap/include/plat/am33xx.h
 /drivers/base/platform.c
 /arch/arm/mach-omap2/omap_hwmod_33xx_data.c
 
 
-**Í¨ÓÃLinuxÏµÍ³ÎÄ¼ş¡£
+**é€šç”¨Linuxç³»ç»Ÿæ–‡ä»¶ã€‚
 
 
-ÕâÀïÁĞ³öÁËÕë¶ÔÌØ¶¨°å¼şµÄÏà¹ØÎÄ¼ş¡£
-ÓĞÁíÍâÒ»¸öºÃ°ì·¨£¬ÏÈ±àÒëÄÚºË³ÉuImage£¬ÔÙµ½¶ÔÓ¦Ä¿Â¼ÏÂ£¬Èç¹û¿´µ½ÓĞ.oÎÄ¼ş£¬ÄÇÃ´¶ÔÓ¦Ãû³ÆµÄ.cÎÄ¼ş¾ÍÊÇÇı¶¯Ô´ÂëÎÄ¼şÁË¡£
+è¿™é‡Œåˆ—å‡ºäº†é’ˆå¯¹ç‰¹å®šæ¿ä»¶çš„ç›¸å…³æ–‡ä»¶ã€‚
+æœ‰å¦å¤–ä¸€ä¸ªå¥½åŠæ³•ï¼Œå…ˆç¼–è¯‘å†…æ ¸æˆuImageï¼Œå†åˆ°å¯¹åº”ç›®å½•ä¸‹ï¼Œå¦‚æœçœ‹åˆ°æœ‰.oæ–‡ä»¶ï¼Œé‚£ä¹ˆå¯¹åº”åç§°çš„.cæ–‡ä»¶å°±æ˜¯é©±åŠ¨æºç æ–‡ä»¶äº†ã€‚
 
 
 22:50 2017/7/5
-Ôö¼ÓÏà¹ØÎÄ¼şµ½source insight¹¤³Ì£¬½øĞĞ´úÂëÔÄ¶Á¡£ÎÄ¼şÔö¼Ó·ÖÎªÁ½²¿·Ö¡£
-µÚÒ»²¿·Ö£º£¨»ù´¡ÎÄ¼ş£¬´ó¼Ò¶¼ĞèÒªµÄ£©
+å¢åŠ ç›¸å…³æ–‡ä»¶åˆ°source insightå·¥ç¨‹ï¼Œè¿›è¡Œä»£ç é˜…è¯»ã€‚æ–‡ä»¶å¢åŠ åˆ†ä¸ºä¸¤éƒ¨åˆ†ã€‚
+ç¬¬ä¸€éƒ¨åˆ†ï¼šï¼ˆåŸºç¡€æ–‡ä»¶ï¼Œå¤§å®¶éƒ½éœ€è¦çš„ï¼‰
 arch/arm/
-	boot ÄÚºËĞèÒªµÄÌØ¶¨Æ½Ì¨´úÂë
-	kernel ÌåÏµ½á¹¹ÌØÓĞµÄ´úÂë
-	lib Í¨ÓÃº¯ÊıÔÚÌØ¶¨ÌåÏµ½á¹¹µÄÊµÏÖ
-	math-emu Ä£Äâ FPU µÄ´úÂë£¬ÔÚ ARM ÖĞ£¬Ê¹ÓÃ mach-xxx ´úÌæ
-	mm ÌØ¶¨ÌåÏµ½á¹¹µÄÄÚ´æ¹ÜÀíÊµÏÖ
-	include ÌØ¶¨ÌåÏµµÄÍ·ÎÄ¼ş
+	boot å†…æ ¸éœ€è¦çš„ç‰¹å®šå¹³å°ä»£ç 
+	kernel ä½“ç³»ç»“æ„ç‰¹æœ‰çš„ä»£ç 
+	lib é€šç”¨å‡½æ•°åœ¨ç‰¹å®šä½“ç³»ç»“æ„çš„å®ç°
+	math-emu æ¨¡æ‹Ÿ FPU çš„ä»£ç ï¼Œåœ¨ ARM ä¸­ï¼Œä½¿ç”¨ mach-xxx ä»£æ›¿
+	mm ç‰¹å®šä½“ç³»ç»“æ„çš„å†…å­˜ç®¡ç†å®ç°
+	include ç‰¹å®šä½“ç³»çš„å¤´æ–‡ä»¶
 
-include/	´æ·ÅÄÚºËËùĞè¡¢ÓëÆ½Ì¨ÎŞ¹ØµÄÍ·ÎÄ¼ş
+include/	å­˜æ”¾å†…æ ¸æ‰€éœ€ã€ä¸å¹³å°æ— å…³çš„å¤´æ–‡ä»¶
 
-init/ °üº¬ÄÚºË³õÊ¼»¯´úÂë
+init/ åŒ…å«å†…æ ¸åˆå§‹åŒ–ä»£ç 
 
-kernel/ °üº¬ Linux ÄÚºË¹ÜÀí´úÂë
+kernel/ åŒ…å« Linux å†…æ ¸ç®¡ç†ä»£ç 
 
-lib/ ¿âÎÄ¼ş´úÂëÊµÏÖ
-
-
-µÚ¶ş²¿·Ö£º£¨Õë¶ÔĞÔ¹¦ÄÜÎÄ¼ş£¬Õë¶ÔÌØ¶¨ĞèÇóµÄ£©
-Õë¶ÔÌØ¶¨°å¼şµÄ¹²ÓÃ´úÂë(ÕâÀïÊÇam3352-t):
+lib/ åº“æ–‡ä»¶ä»£ç å®ç°
 
 
-Àı×Ó1£º
-½â¶ÁI2CµÄÂã»ú¼Ä´æÆ÷¶ÁĞ´
+ç¬¬äºŒéƒ¨åˆ†ï¼šï¼ˆé’ˆå¯¹æ€§åŠŸèƒ½æ–‡ä»¶ï¼Œé’ˆå¯¹ç‰¹å®šéœ€æ±‚çš„ï¼‰
+é’ˆå¯¹ç‰¹å®šæ¿ä»¶çš„å…±ç”¨ä»£ç (è¿™é‡Œæ˜¯am3352-t):
+
+
+ä¾‹å­1ï¼š
+è§£è¯»I2Cçš„è£¸æœºå¯„å­˜å™¨è¯»å†™
 
 
 

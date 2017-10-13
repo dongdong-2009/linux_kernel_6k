@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Code for M3352 Module.
  *
  * Copyright (C) 2013 ZHIYUAN Electronics http://www.zlg.cn
@@ -46,7 +46,7 @@
 #include <linux/opp.h>
 #include <linux/serial_8250.h>
 #include <sound/tlv320aic3x.h>
-//-ÄÚºËµÄ´¦ÀíÆ÷Æ½Ì¨³õÊ¼»¯´úÂë
+//-å†…æ ¸çš„å¤„ç†å™¨å¹³å°åˆå§‹åŒ–ä»£ç 
 /* LCD controller is similar to DA850 */
 #include <video/da8xx-fb.h>
 
@@ -260,7 +260,7 @@ static struct omap_board_mux board_mux[] __initdata = {
 #else
 #define	board_mux	NULL
 #endif
-/* Ä£¿éÒı½Å¸´ÓÃ½á¹¹Ìå */
+/* æ¨¡å—å¼•è„šå¤ç”¨ç»“æ„ä½“ */
 /* module pin mux structure */
 struct pinmux_config {
 	const char *string_name; /* signal name format */
@@ -645,7 +645,7 @@ static struct pinmux_config gpio_ddr_vtt_enb_pin_mux[] = {
 * @pin_mux - single module pin-mux structure which defines pin-mux
 *			details for all its pins.
 */
-static void setup_pin_mux(struct pinmux_config *pin_mux)	//-ÔËĞĞĞ¾Æ¬ÌØ¶¨µÄMUX³õÊ¼»¯º¯Êı,×îÖÕĞŞ¸ÄÁË¼Ä´æÆ÷Öµ
+static void setup_pin_mux(struct pinmux_config *pin_mux)	//-è¿è¡ŒèŠ¯ç‰‡ç‰¹å®šçš„MUXåˆå§‹åŒ–å‡½æ•°,æœ€ç»ˆä¿®æ”¹äº†å¯„å­˜å™¨å€¼
 {
 	int i;
 
@@ -1061,8 +1061,8 @@ static void evm_nand_init(int evm_id, int profile)
 	omap_init_gpmc(gpmc_device, sizeof(gpmc_device));
 	omap_init_elm();
 }
-//-ÔÚÍ¬Ò»¸ö×ÜÏßÉÏÔö¼ÓÉè±¸,ÕâÀïÓ¦¸Ã¾ÍÊÇĞÅÏ¢Ìí¼Ó´¦
-static struct i2c_board_info am335x_i2c1_boardinfo[] = {//-³õÊ¼»¯Ò»¸ö´Ó»úÆ÷¼şĞÅÏ¢
+//-åœ¨åŒä¸€ä¸ªæ€»çº¿ä¸Šå¢åŠ è®¾å¤‡,è¿™é‡Œåº”è¯¥å°±æ˜¯ä¿¡æ¯æ·»åŠ å¤„
+static struct i2c_board_info am335x_i2c1_boardinfo[] = {//-åˆå§‹åŒ–ä¸€ä¸ªä»æœºå™¨ä»¶ä¿¡æ¯
 	{
 		I2C_BOARD_INFO("pcf8563", 0x51),
 	},
@@ -1072,7 +1072,7 @@ static void i2c1_init(int evm_id, int profile)
 {
 	setup_pin_mux(i2c1_pin_mux);
 	omap_register_i2c_bus(2, 400, am335x_i2c1_boardinfo,
-			ARRAY_SIZE(am335x_i2c1_boardinfo));	//-×¢²áµ½Ö¸¶¨µÄ×ÜÏß
+			ARRAY_SIZE(am335x_i2c1_boardinfo));	//-æ³¨å†Œåˆ°æŒ‡å®šçš„æ€»çº¿
 	return;
 }
 
@@ -1566,10 +1566,10 @@ static struct ds2460_platform_data ds2460_eeprom_info = {
 //    .setup          = davinci_get_mac_addr,
     .context    = (void *)0x80,
 };
-//-i2cÉè±¸µÄÉè±¸µØÖ·
+//-i2cè®¾å¤‡çš„è®¾å¤‡åœ°å€
 static struct i2c_board_info __initdata am335x_i2c0_boardinfo[] = {
     {
-        I2C_BOARD_INFO("ds2460", 0x80 >> 1),	//-Ìí¼ÓÉè±¸ĞÅÏ¢
+        I2C_BOARD_INFO("ds2460", 0x80 >> 1),	//-æ·»åŠ è®¾å¤‡ä¿¡æ¯
         .platform_data  = &ds2460_eeprom_info,
     },
 };
@@ -1586,7 +1586,7 @@ static struct omap_musb_board_data musb_board_data = {
 	.power		= 500,
 	.instances	= 1,
 };
-//-³õÊ¼»¯i2c 0,ÓÉÓÚi2c0Òı½ÅµÄmode0¾ÍÊÇi2c¹¦ÄÜ£¬ËùÒÔ²»ĞèÒªÅäÖÃÒı½Å¸´ÓÃ
+//-åˆå§‹åŒ–i2c 0,ç”±äºi2c0å¼•è„šçš„mode0å°±æ˜¯i2cåŠŸèƒ½ï¼Œæ‰€ä»¥ä¸éœ€è¦é…ç½®å¼•è„šå¤ç”¨
 static void __init am335x_evm_i2c_init(void)
 {
 	/* Initially assume General Purpose EVM Config */
@@ -1658,7 +1658,7 @@ static void __init am33xx_cpuidle_init(void)
 
 }
 
-static void __init am335x_evm_init(void)	//-×¢²áÁË¿ª·¢°åËùÓÃµ½µÄËùÓĞÉè±¸µÄÏà¹ØÓ²¼şĞÅÏ¢
+static void __init am335x_evm_init(void)	//-æ³¨å†Œäº†å¼€å‘æ¿æ‰€ç”¨åˆ°çš„æ‰€æœ‰è®¾å¤‡çš„ç›¸å…³ç¡¬ä»¶ä¿¡æ¯
 {
 	int i;
 
@@ -1833,15 +1833,15 @@ static void __init am335x_evm_map_io(void)
 	omap2_set_globals_am33xx();
 	omapam33xx_map_common_io();
 }
-//-i2cÉè±¸×¢²á£¬ÅäÖÃÒı½Å¸´ÓÃ
+//-i2cè®¾å¤‡æ³¨å†Œï¼Œé…ç½®å¼•è„šå¤ç”¨
 MACHINE_START(AM335XEVM, "3352-T")
 	/* Maintainer: Texas Instruments */
 	.atag_offset	= 0x100,
 	.map_io			= am335x_evm_map_io,
-	.init_early		= am33xx_init_early,	//-¼Ä´æÆ÷µØÖ·Ö¸¶¨
+	.init_early		= am33xx_init_early,	//-å¯„å­˜å™¨åœ°å€æŒ‡å®š
 	.init_irq		= ti81xx_init_irq,
 	.handle_irq     = omap3_intc_handle_irq,
 	.timer			= &omap3_am33xx_timer,
-	.init_machine	= am335x_evm_init,	//GPIOÒı½Å¸´ÓÃÅäÖÃ
+	.init_machine	= am335x_evm_init,	//GPIOå¼•è„šå¤ç”¨é…ç½®
 MACHINE_END
 
