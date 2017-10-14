@@ -603,7 +603,7 @@ static struct pinmux_config gpio_pin_mux[] = {
 	{"gpmc_ad15.gpio1_15", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(14)
 	{"uart1_rtsn.gpio0_13", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},
 //	{"lcd_data5.gpio2_11", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(14)
-/*	
+	//-增加千兆网引脚配置为GPIO
 	{"gpmc_a0.gpio1_16",   OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(11)
 	{"gpmc_a1.gpio1_17",   OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(12)
 	{"gpmc_a2.gpio1_18",   OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(9)
@@ -616,7 +616,7 @@ static struct pinmux_config gpio_pin_mux[] = {
 	{"gpmc_a9.gpio1_25",   OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(4)
 	{"gpmc_a10.gpio1_26",  OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(1)
 	{"gpmc_a11.gpio1_27",  OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8_(2)
-*/
+
 	{NULL, 0},
 };
 
@@ -1420,7 +1420,7 @@ static struct evm_dev_cfg zy_m3352_dev_cfg[] = {
 	{uart4_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{uart5_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{rmii1_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
-	{rgmii2_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK，EPC-9600不用千兆网
+	//-{rgmii2_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK，EPC-9600不用千兆网  //-取消千兆网注释掉
 	{sgx_init,		DEV_ON_BASEBOARD, PROFILE_NONE },
 	{gpio_led_init, DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{gpio_init,			DEV_ON_BASEBOARD, PROFILE_NONE },
