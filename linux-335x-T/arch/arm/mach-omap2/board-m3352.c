@@ -595,7 +595,7 @@ static struct pinmux_config gpio_pin_mux[] = {
 //	{"gpmc_ad10.gpio0_26", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//AUDIO nRESET
 	{"gpmc_ad8.gpio0_22" , OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(15)
 	{"gpmc_ad9.gpio0_23" , OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//GPIO J8-(15)
-	{"gpmc_ad10.gpio0_26", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//GPIO J8-(15)
+//-	{"gpmc_ad10.gpio0_26", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//GPIO J8-(15)
 	{"gpmc_ad11.gpio0_27", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(15)
 	{"gpmc_ad12.gpio1_12", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(15)
 	{"gpmc_ad13.gpio1_13", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//GPIO J8-(16)
@@ -1080,7 +1080,7 @@ static struct aic3x_pdata epc9600_aic3x_data __initdata = {
      .gpio_reset = 26,//GPIO0_26
 };
 
-static struct i2c_board_info am335x_i2c2_boardinfo_[] = {
+static struct i2c_board_info am335x_i2c2_boardinfo[] = {
 #if defined (CONFIG_SND_SOC_TLV320AIC23)
 	{
         I2C_BOARD_INFO("tlv320aic23", 0x1A),
@@ -1100,9 +1100,9 @@ static void i2c2_init(int evm_id, int profile)
 	{
 		printk("--------------------------i2c2------------------------\n");
 		setup_pin_mux(i2c2_pin_mux);
-		omap_register_i2c_bus(3, 100,NULL,NULL);
-//		omap_register_i2c_bus(3, 100, am335x_i2c2_boardinfo,
-//				ARRAY_SIZE(am335x_i2c2_boardinfo));
+//-		omap_register_i2c_bus(3, 100,NULL,NULL);
+		omap_register_i2c_bus(3, 100, am335x_i2c2_boardinfo,
+				ARRAY_SIZE(am335x_i2c2_boardinfo));
 	}
 	return;
 }
@@ -1406,7 +1406,7 @@ static struct evm_dev_cfg zy_m3352_dev_cfg[] = {
 	{lcdc_init,			DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{mfd_tscadc_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{usb0_init,			DEV_ON_BASEBOARD, PROFILE_NONE },
-	{usb1_init,			DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
+	//-{usb1_init,			DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{evm_nand_init, 	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	//-{gpio_test_3352_T, 	DEV_ON_BASEBOARD, PROFILE_NONE }, //3352-T gpio_test
 	{i2c1_init,     	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
@@ -1727,11 +1727,13 @@ static void __init am335x_evm_init(void)	//-注册了开发板所用到的所有
 	gpio_export(23, 1);
 	gpio_direction_output(23, 0);
 
+#if 0
 	if (gpio_request(26, "gpio26") < 0) {
 		printk(KERN_ERR "failed to get GPIO_26\n");
 	}
 	gpio_export(26, 1);
 	gpio_direction_output(26, 1);
+#endif
 
 	if (gpio_request(27, "gpio27") < 0) {
 		printk(KERN_ERR "failed to get GPIO_27\n");
