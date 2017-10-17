@@ -861,7 +861,7 @@ static void rgmii2_init(int evm_id, int profile)
 static void rmii1_init(int evm_id, int profile)
 {
 	setup_pin_mux(rmii1_pin_mux);
-//	am33xx_cpsw_init(AM33XX_CPSW_MODE_RMII, NULL, NULL); //abing
+	am33xx_cpsw_init(AM33XX_CPSW_MODE_RMII, NULL, NULL); //abing
 	return;
 }
 
@@ -1408,7 +1408,7 @@ static struct evm_dev_cfg zy_m3352_dev_cfg[] = {
 	{usb0_init,			DEV_ON_BASEBOARD, PROFILE_NONE },
 	{usb1_init,			DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{evm_nand_init, 	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
-	{gpio_test_3352_T, 	DEV_ON_BASEBOARD, PROFILE_NONE }, //3352-T gpio_test
+	//-{gpio_test_3352_T, 	DEV_ON_BASEBOARD, PROFILE_NONE }, //3352-T gpio_test
 	{i2c1_init,     	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{i2c2_init,     	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{d_can_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
@@ -1731,7 +1731,7 @@ static void __init am335x_evm_init(void)	//-注册了开发板所用到的所有
 		printk(KERN_ERR "failed to get GPIO_26\n");
 	}
 	gpio_export(26, 1);
-	gpio_direction_output(26, 0);
+	gpio_direction_output(26, 1);
 
 	if (gpio_request(27, "gpio27") < 0) {
 		printk(KERN_ERR "failed to get GPIO_27\n");
