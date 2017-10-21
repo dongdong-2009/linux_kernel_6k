@@ -617,6 +617,11 @@ static struct pinmux_config gpio_pin_mux[] = {
 	{"gpmc_a10.gpio1_26",  OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(1)
 	{"gpmc_a11.gpio1_27",  OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8_(2)
 
+	//-两路 CAN 改成 GPIO
+	{" uart0_ctsn. gpio1_8", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
+	{" uart0_rtsn. gpio1_9", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
+	{" uart1_ctsn. gpio0_12", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
+	{" uart1_rtsn. gpio0_13", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
 	{NULL, 0},
 };
 
@@ -1411,7 +1416,7 @@ static struct evm_dev_cfg zy_m3352_dev_cfg[] = {
 	//-{gpio_test_3352_T, 	DEV_ON_BASEBOARD, PROFILE_NONE }, //3352-T gpio_test
 	{i2c1_init,     	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{i2c2_init,     	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
-	{d_can_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
+	//-{d_can_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{mcasp0_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{mmc0_init,		DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
 	{uart1_init,	DEV_ON_BASEBOARD, PROFILE_NONE }, //OK
