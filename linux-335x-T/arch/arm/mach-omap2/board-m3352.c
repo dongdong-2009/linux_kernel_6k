@@ -592,7 +592,7 @@ static struct pinmux_config gpio_pin_mux[] = {
 	{"gpmc_csn2.gpio1_31", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//J6 (3)
 	{"gpmc_csn1.gpio1_30", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//J6 (4)
 
-//	{"gpmc_ad10.gpio0_26", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//AUDIO nRESET
+	{"gpmc_ad10.gpio0_26", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//AUDIO nRESET
 	{"gpmc_ad8.gpio0_22" , OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(15)
 	{"gpmc_ad9.gpio0_23" , OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//GPIO J8-(15)
 //-	{"gpmc_ad10.gpio0_26", OMAP_MUX_MODE7 | AM33XX_PIN_OUTPUT},//GPIO J8-(15)
