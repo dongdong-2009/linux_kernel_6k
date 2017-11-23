@@ -16,11 +16,11 @@ void epc_feed_wdt(void)
 	ndelay(2);
 	gpio_direction_output(65, 1);
 }
-EXPORT_SYMBOL(epc_feed_wdt);
+EXPORT_SYMBOL(epc_feed_wdt);	//-导出符号到内核符号表,导出的符号可以被其他模块使用，不过使用之前一定要声明一下。
 
 static void epc_watchdog_timeout(unsigned long arg)
 {
-	//printk("timer out!\n");
+	//-printk("timer out!\n");	//-目前一但系统运行起来了,这个就是在不停的打印的,但是不影响看门狗复位
 	epc_feed_wdt();	
 	mod_timer(&epc_watchdog, jiffies + 1*HZ/4);
 }
