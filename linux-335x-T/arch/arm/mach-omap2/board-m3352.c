@@ -617,6 +617,8 @@ static struct pinmux_config gpio_pin_mux[] = {
 	{"gpmc_a10.gpio1_26",  OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8-(1)
 	{"gpmc_a11.gpio1_27",  OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},//GPIO J8_(2)
 
+	//-USB 改GPIO
+	{"usb1_drvvbus.gpio3_13",  OMAP_MUX_MODE7 | AM33XX_PIN_INPUT_PULLUP},
 	//-两路 CAN 改成 GPIO
 	{" uart0_ctsn. gpio1_8", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
 	{" uart0_rtsn. gpio1_9", OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},

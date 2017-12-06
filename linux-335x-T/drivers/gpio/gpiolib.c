@@ -1,4 +1,4 @@
-#include <linux/kernel.h>
+ï»¿#include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/interrupt.h>
 #include <linux/irq.h>
@@ -11,7 +11,7 @@
 #include <linux/of_gpio.h>
 #include <linux/idr.h>
 #include <linux/slab.h>
-//-GPIO SupportÑ¡ÏîµÄÑ¡Èë£¬ÄÚºË»á½«±ê×¼GPIO¿â½øĞĞ±àÒë¡£±ê×¼GPIO¿âµÄÔ´ÂëÎ»ÓÚÄÚºËÖĞµÄÈçÏÂÎ»ÖÃ:/driver/gpio/gpiolib.c
+//-GPIO Supporté€‰é¡¹çš„é€‰å…¥ï¼Œå†…æ ¸ä¼šå°†æ ‡å‡†GPIOåº“è¿›è¡Œç¼–è¯‘ã€‚æ ‡å‡†GPIOåº“çš„æºç ä½äºå†…æ ¸ä¸­çš„å¦‚ä¸‹ä½ç½®:/driver/gpio/gpiolib.c
 #define CREATE_TRACE_POINTS
 #include <trace/events/gpio.h>
 
@@ -47,7 +47,7 @@
 static DEFINE_SPINLOCK(gpio_lock);
 
 struct gpio_desc {
-	struct gpio_chip	*chip;	//¿ØÖÆÆ÷Ö¸Õë
+	struct gpio_chip	*chip;	//æ§åˆ¶å™¨æŒ‡é’ˆ
 	unsigned long		flags;
 /* flag symbols are bit numbers */
 #define FLAG_REQUESTED	0
@@ -1173,19 +1173,19 @@ EXPORT_SYMBOL_GPL(gpiochip_find);
  * on each other, and help provide better diagnostics in debugfs.
  * They're called even less than the "set direction" calls.
  */
-int gpio_request(unsigned gpio, const char *label)	//-»ñÈ¡GPIO PinµÄÊ¹ÓÃÈ¨£¬²¢Îª¸ÃPinÃüÃûÎªlabel
+int gpio_request(unsigned gpio, const char *label)	//-è·å–GPIO Pinçš„ä½¿ç”¨æƒï¼Œå¹¶ä¸ºè¯¥Pinå‘½åä¸ºlabel
 {
-	struct gpio_desc	*desc;	//gpio pin½á¹¹ÌåÖ¸Õë£¬²Î¼ûÏÂÃæÏà¹ØÊı¾İ½á¹¹ÃèÊö¡£
-	struct gpio_chip	*chip;	//gpio pin controler½á¹¹ÌåÖ¸Õë£¬²Î¼ûÏÂÃæÏà¹ØÊı¾İ½á¹¹ÃèÊö
+	struct gpio_desc	*desc;	//gpio pinç»“æ„ä½“æŒ‡é’ˆï¼Œå‚è§ä¸‹é¢ç›¸å…³æ•°æ®ç»“æ„æè¿°ã€‚
+	struct gpio_chip	*chip;	//gpio pin controlerç»“æ„ä½“æŒ‡é’ˆï¼Œå‚è§ä¸‹é¢ç›¸å…³æ•°æ®ç»“æ„æè¿°
 	int			status = -EINVAL;
 	unsigned long		flags;
 
 	spin_lock_irqsave(&gpio_lock, flags);
 
-	if (!gpio_is_valid(gpio))	//¼ì²âargument gpioµÄºÏ·¨ĞÔ¡£
+	if (!gpio_is_valid(gpio))	//æ£€æµ‹argument gpioçš„åˆæ³•æ€§ã€‚
 		goto done;
-	desc = &gpio_desc[gpio];	//´ÓgpioÊı×égpio_desc´Ó»ñÈ¡¶ÔÓ¦µÄPin½á¹¹Ìå¡£
-	chip = desc->chip;	//»ñÈ¡gpio pinµÄ¿ØÖÆÆ÷
+	desc = &gpio_desc[gpio];	//ä»gpioæ•°ç»„gpio_descä»è·å–å¯¹åº”çš„Pinç»“æ„ä½“ã€‚
+	chip = desc->chip;	//è·å–gpio pinçš„æ§åˆ¶å™¨
 	if (chip == NULL)
 		goto done;
 
@@ -1227,7 +1227,7 @@ done:
 }
 EXPORT_SYMBOL_GPL(gpio_request);
 
-void gpio_free(unsigned gpio)	//-ÊÍ·ÅGPIO PinµÄÊ¹ÓÃÈ¨
+void gpio_free(unsigned gpio)	//-é‡Šæ”¾GPIO Pinçš„ä½¿ç”¨æƒ
 {
 	unsigned long		flags;
 	struct gpio_desc	*desc;
@@ -1365,7 +1365,7 @@ EXPORT_SYMBOL_GPL(gpiochip_is_requested);
  * rely on gpio_request() having been called beforehand.
  */
 
-int gpio_direction_input(unsigned gpio)	//-ÉèÖÃGPIO PinÎªÊäÈëÄ£Ê½
+int gpio_direction_input(unsigned gpio)	//-è®¾ç½®GPIO Pinä¸ºè¾“å…¥æ¨¡å¼
 {
 	unsigned long		flags;
 	struct gpio_chip	*chip;
@@ -1420,7 +1420,7 @@ fail:
 }
 EXPORT_SYMBOL_GPL(gpio_direction_input);
 
-int gpio_direction_output(unsigned gpio, int value)	//-ÉèÖÃGPIO PinÎªÊä³öÄ£Ê½£¬²¢Ö¸¶¨Êä³öÖµvalue
+int gpio_direction_output(unsigned gpio, int value)	//-è®¾ç½®GPIO Pinä¸ºè¾“å‡ºæ¨¡å¼ï¼Œå¹¶æŒ‡å®šè¾“å‡ºå€¼value
 {
 	unsigned long		flags;
 	struct gpio_chip	*chip;
@@ -1550,7 +1550,7 @@ EXPORT_SYMBOL_GPL(gpio_set_debounce);
  * It returns the zero or nonzero value provided by the associated
  * gpio_chip.get() method; or zero if no such method is provided.
  */
-int __gpio_get_value(unsigned gpio)	//-»ñµÃ GPIO Pin ÉÏµÄµçÆ½
+int __gpio_get_value(unsigned gpio)	//-è·å¾— GPIO Pin ä¸Šçš„ç”µå¹³
 {
 	struct gpio_chip	*chip;
 	int value;
@@ -1572,7 +1572,7 @@ EXPORT_SYMBOL_GPL(__gpio_get_value);
  * This is used directly or indirectly to implement gpio_set_value().
  * It invokes the associated gpio_chip.set() method.
  */
-void __gpio_set_value(unsigned gpio, int value)	//-ÉèÖÃ GPIO Pin ÉÏµÄµçÆ½
+void __gpio_set_value(unsigned gpio, int value)	//-è®¾ç½® GPIO Pin ä¸Šçš„ç”µå¹³
 {
 	struct gpio_chip	*chip;
 
@@ -1611,7 +1611,7 @@ EXPORT_SYMBOL_GPL(__gpio_cansleep);
  * It returns the number of the IRQ signaled by this (input) GPIO,
  * or a negative errno.
  */
-int __gpio_to_irq(unsigned gpio)	//-Í¨¹ı»ñµÃGPIO Pin ¶ÔÓ¦µÄ irq number
+int __gpio_to_irq(unsigned gpio)	//-é€šè¿‡è·å¾—GPIO Pin å¯¹åº”çš„ irq number
 {
 	struct gpio_chip	*chip;
 
